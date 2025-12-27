@@ -1,12 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Layout from "./Layout/Layout"
-import Homepage from "./pages/Homepage"
-import Aboutpage from "./pages/Aboutpage"
-import Vehiclespage from "./pages/Vehiclespage"
-import Contactpage from "./pages/Contactpage"
-import Infopage from "./pages/Infopage"
-import Loginpage from "./pages/Loginpage"
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./Layout/Layout";
+import Homepage from "./pages/Homepage";
+import Aboutpage from "./pages/Aboutpage";
+import Contactpage from "./pages/Contactpage";
+import Infopage from "./pages/Infopage";
+import Loginpage from "./pages/Loginpage";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -16,32 +16,32 @@ const App = () => {
       children: [
         {
           index: true,
-          element: <Loginpage/>
+          element: <Loginpage />,
         },
         {
           path: "/",
-          element: <Homepage/>
+          element: (
+            <Provider store={store}>
+              <Homepage />
+            </Provider>
+          ),
         },
         {
           path: "/about",
-          element: <Aboutpage/>
-        },
-        {
-          path: "/vehicles",
-          element: <Vehiclespage/>
+          element: <Aboutpage />,
         },
         {
           path: "/cpntact",
-          element: <Contactpage/>
+          element: <Contactpage />,
         },
         {
-          path: "/info",
-          element: <Infopage/>
-        }
-      ]
-    }
-  ])
-  return <RouterProvider router={router}/>
-}
+          path: "/info/?id",
+          element: <Infopage />,
+        },
+      ],
+    },
+  ]);
+  return <RouterProvider router={router} />;
+};
 
-export default App
+export default App;
